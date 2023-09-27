@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd"
+        logicalFilePath="homework-2">
+
+    <changeSet id="homework-2-user" author="Name Surname">
+        <sqlFile encoding="utf8" path="./sql/01.create-users-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="homework-2-add-phone-column" author="Name Surname">
+        <sqlFile encoding="utf8" path="./sql/02.add-phone-column.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 13:47" author="Irina Bogatyr">
+        <createTable tableName="Client">
+            <column name="subscription_id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="client_first_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_second_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_third_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sex" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birthdate" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="height" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscription_begin" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscription_end" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-09-26 13:51" author="Irina Bogatyr">
+        <createTable tableName="Trainer">
+            <column name="trainer_id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="trainer_first_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trainer_second_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trainer_third_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trainer_phone" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-09-26 13:53" author="Irina Bogatyr">
+        <createTable tableName="Program">
+            <column name="program_id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="program_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-09-26 13:59" author="Irina Bogatyr">
+        <createTable tableName="FC_Group">
+            <column name="group_id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="program_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trainer_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="clients_amount" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-09-26 14:12" author="Irina Bogatyr">
+        <createTable tableName="Timetable">
+            <column name="time_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-09-26 14:16" author="Irina Bogatyr">
+        <createTable tableName="Group_client">
+            <column name="group_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscription_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-09-26 14:19" author="Irina Bogatyr">
+        <createTable tableName="Times">
+            <column name="time_id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="weekday" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="training_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="program_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-09-26 14:50" author="Irina Bogatyr">
+        <addUniqueConstraint  tableName="Timetable"
+                              columnNames="time_id"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 15:02" author="Irina Bogatyr">
+        <addForeignKeyConstraint
+                baseColumnNames="subscription_id"
+                baseTableName="Group_client"
+                constraintName="Client_pk"
+                referencedColumnNames="subscription_id"
+                referencedTableName="Client"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 18:38" author="Irina Bogatyr">
+        <addForeignKeyConstraint
+                baseColumnNames="group_id"
+                baseTableName="Group_client"
+                constraintName="Group_pk"
+                referencedColumnNames="group_id"
+                referencedTableName="FC_Group"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 18:47" author="Irina Bogatyr">
+        <addForeignKeyConstraint
+                baseColumnNames="trainer_id"
+                baseTableName="FC_Group"
+                constraintName="Trainer_pk"
+                referencedColumnNames="trainer_id"
+                referencedTableName="Trainer"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 18:49" author="Irina Bogatyr">
+        <addForeignKeyConstraint
+                baseColumnNames="program_id"
+                baseTableName="FC_Group"
+                constraintName="Program_pk"
+                referencedColumnNames="program_id"
+                referencedTableName="Program"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 18:50" author="Irina Bogatyr">
+        <addForeignKeyConstraint
+                baseColumnNames="program_id"
+                baseTableName="Times"
+                constraintName="Program_pk"
+                referencedColumnNames="program_id"
+                referencedTableName="Program"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 18:51" author="Irina Bogatyr">
+        <addForeignKeyConstraint
+                baseColumnNames="time_id"
+                baseTableName="Timetable"
+                constraintName="Times_pk"
+                referencedColumnNames="time_id"
+                referencedTableName="Times"/>
+    </changeSet>
+
+    <changeSet id="2023-09-26 18:53" author="Irina Bogatyr">
+        <addForeignKeyConstraint
+                baseColumnNames="group_id"
+                baseTableName="Timetable"
+                constraintName="Group_pk"
+                referencedColumnNames="group_id"
+                referencedTableName="FC_Group"/>
+    </changeSet>
+</databaseChangeLog>
