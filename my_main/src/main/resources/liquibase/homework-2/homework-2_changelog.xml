@@ -18,7 +18,7 @@
     </changeSet>
 
     <changeSet id="2023-09-26 13:47" author="Irina Bogatyr">
-        <createTable tableName="Client">
+        <createTable tableName="client">
             <column name="subscription_id" type="serial">
                 <constraints primaryKey="true"/>
             </column>
@@ -53,7 +53,7 @@
     </changeSet>
 
     <changeSet id="2023-09-26 13:51" author="Irina Bogatyr">
-        <createTable tableName="Trainer">
+        <createTable tableName="trainer">
             <column name="trainer_id" type="serial">
                 <constraints primaryKey="true"/>
             </column>
@@ -73,7 +73,7 @@
     </changeSet>
 
     <changeSet id="2023-09-26 13:53" author="Irina Bogatyr">
-        <createTable tableName="Program">
+        <createTable tableName="program">
             <column name="program_id" type="serial">
                 <constraints primaryKey="true"/>
             </column>
@@ -84,7 +84,7 @@
     </changeSet>
 
     <changeSet id="2023-09-26 13:59" author="Irina Bogatyr">
-        <createTable tableName="FC_Group">
+        <createTable tableName="fc_group">
             <column name="group_id" type="serial">
                 <constraints primaryKey="true"/>
             </column>
@@ -104,7 +104,7 @@
     </changeSet>
 
     <changeSet id="2023-09-26 14:12" author="Irina Bogatyr">
-        <createTable tableName="Timetable">
+        <createTable tableName="timetable">
             <column name="time_id" type="integer">
                 <constraints nullable="false"/>
             </column>
@@ -115,7 +115,7 @@
     </changeSet>
 
     <changeSet id="2023-09-26 14:16" author="Irina Bogatyr">
-        <createTable tableName="Group_client">
+        <createTable tableName="group_client">
             <column name="group_id" type="integer">
                 <constraints nullable="false"/>
             </column>
@@ -126,7 +126,7 @@
     </changeSet>
 
     <changeSet id="2023-09-26 14:19" author="Irina Bogatyr">
-        <createTable tableName="Times">
+        <createTable tableName="times">
             <column name="time_id" type="serial">
                 <constraints primaryKey="true"/>
             </column>
@@ -143,70 +143,70 @@
     </changeSet>
 
     <changeSet id="2023-09-26 14:50" author="Irina Bogatyr">
-        <addUniqueConstraint  tableName="Timetable"
+        <addUniqueConstraint  tableName="timetable"
                               columnNames="time_id"/>
     </changeSet>
 
     <changeSet id="2023-09-26 15:02" author="Irina Bogatyr">
         <addForeignKeyConstraint
                 baseColumnNames="subscription_id"
-                baseTableName="Group_client"
-                constraintName="Client_pk"
+                baseTableName="group_client"
+                constraintName="client_pk"
                 referencedColumnNames="subscription_id"
-                referencedTableName="Client"/>
+                referencedTableName="client"/>
     </changeSet>
 
     <changeSet id="2023-09-26 18:38" author="Irina Bogatyr">
         <addForeignKeyConstraint
                 baseColumnNames="group_id"
-                baseTableName="Group_client"
-                constraintName="Group_pk"
+                baseTableName="group_client"
+                constraintName="group_pk"
                 referencedColumnNames="group_id"
-                referencedTableName="FC_Group"/>
+                referencedTableName="fc_group"/>
     </changeSet>
 
     <changeSet id="2023-09-26 18:47" author="Irina Bogatyr">
         <addForeignKeyConstraint
                 baseColumnNames="trainer_id"
-                baseTableName="FC_Group"
-                constraintName="Trainer_pk"
+                baseTableName="fc_group"
+                constraintName="trainer_pk"
                 referencedColumnNames="trainer_id"
-                referencedTableName="Trainer"/>
+                referencedTableName="trainer"/>
     </changeSet>
 
     <changeSet id="2023-09-26 18:49" author="Irina Bogatyr">
         <addForeignKeyConstraint
                 baseColumnNames="program_id"
-                baseTableName="FC_Group"
-                constraintName="Program_pk"
+                baseTableName="fc_group"
+                constraintName="program_pk"
                 referencedColumnNames="program_id"
-                referencedTableName="Program"/>
+                referencedTableName="program"/>
     </changeSet>
 
     <changeSet id="2023-09-26 18:50" author="Irina Bogatyr">
         <addForeignKeyConstraint
                 baseColumnNames="program_id"
-                baseTableName="Times"
-                constraintName="Program_pk"
+                baseTableName="times"
+                constraintName="program_pk"
                 referencedColumnNames="program_id"
-                referencedTableName="Program"/>
+                referencedTableName="program"/>
     </changeSet>
 
     <changeSet id="2023-09-26 18:51" author="Irina Bogatyr">
         <addForeignKeyConstraint
                 baseColumnNames="time_id"
-                baseTableName="Timetable"
-                constraintName="Times_pk"
+                baseTableName="timetable"
+                constraintName="times_pk"
                 referencedColumnNames="time_id"
-                referencedTableName="Times"/>
+                referencedTableName="times"/>
     </changeSet>
 
     <changeSet id="2023-09-26 18:53" author="Irina Bogatyr">
         <addForeignKeyConstraint
                 baseColumnNames="group_id"
-                baseTableName="Timetable"
-                constraintName="Group_pk"
+                baseTableName="timetable"
+                constraintName="group_pk"
                 referencedColumnNames="group_id"
-                referencedTableName="FC_Group"/>
+                referencedTableName="fc_group"/>
     </changeSet>
 </databaseChangeLog>
