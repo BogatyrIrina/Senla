@@ -4,7 +4,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>my_main</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Archetype - main</name>
     <url>http://maven.apache.org</url>
 
@@ -36,6 +36,12 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-maven-plugin</artifactId>
             <version>4.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.senla</groupId>
+            <artifactId>my_di</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

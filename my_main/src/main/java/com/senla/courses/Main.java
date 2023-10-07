@@ -1,7 +1,9 @@
 package com.senla.courses;
 
+import com.senla.courses.api.Starter;
 import com.senla.courses.controller.ControllerInterface;
 import com.senla.courses.controller.impl.ControllerInterfaceImpl;
+import com.senla.courses.injection.AppContext;
 import com.senla.courses.repository.DatabaseInterface;
 import com.senla.courses.repository.impl.DatabaseInterfaceImpl;
 import com.senla.courses.service.ServiceInterface;
@@ -9,11 +11,15 @@ import com.senla.courses.service.impl.ServiceInterfaceImpl;
 import com.senla.courses.util.ParametersHolder;
 import com.senla.courses.util.impl.ParametersHolderImpl;
 
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
+
+import static java.util.logging.LogManager.*;
 
 public class Main {
-    private static final Logger logger = LogManager.getLogManager().getLogger("Main.class");
+    private static final Logger logger = LogManager.getRootLogger();
     public static void main(String[] args) {
 
         //Проверка архитектуры
@@ -23,6 +29,20 @@ public class Main {
         ControllerInterface controllerInterface = new ControllerInterfaceImpl(serviceInterface);
         controllerInterface.start();
 
-        logger.warning("This is warn message");
+        logger.warn("Program starts. This is warn message");
+
+        AppContext applicationContext = Starter.run(List.of("com.senla.courses.controller", "com.senla.courses.service",
+                "com.senla.courses.repository", "com.senla.courses.util"));
+
+        logger.info("Context have been Created");
+
+        ControllerInterface controllerInterface = applicationContext.getObject(ControllerInterface.class);
+
+        logger.info("Controller interface was extracted");
+
+        //controllerInterface.start();
+
+        logger.error("GOOD JOB!!!");
+
     }
 }
