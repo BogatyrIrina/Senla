@@ -13,6 +13,10 @@ public class ControllerInterfaceImpl implements ControllerInterface {
     private ServiceInterface serviceInterface;
     private String appender;
 
+    public ControllerInterfaceImpl(ServiceInterface serviceInterface) {
+        this.serviceInterface = serviceInterface;
+    }
+
     @PostConstruct
     public void init() {
         appender = " Awesome!";

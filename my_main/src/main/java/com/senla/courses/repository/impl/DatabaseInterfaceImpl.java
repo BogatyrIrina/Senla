@@ -5,11 +5,14 @@ import com.senla.courses.repository.DatabaseInterface;
 import com.senla.courses.util.ParametersHolder;
 
 public class DatabaseInterfaceImpl implements DatabaseInterface {
-    @Autowire
-    private  ParametersHolder parametersHolder;
+    //@Autowire
+    private final ParametersHolder parametersHolder;
 //    public DatabaseInterfaceImpl(ParametersHolder parametersHolder){
 //        this.parametersHolder = parametersHolder;
 //    }
+public DatabaseInterfaceImpl(ParametersHolder parametersHolder) {
+    this.parametersHolder = parametersHolder;
+}
     @Override
     public String execute() {
 

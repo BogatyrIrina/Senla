@@ -30,15 +30,6 @@ public class ValueConfigurator implements BeanConfigurator {
         }
     }
 
-    @Override
-    public <T> Class<? extends T> getImplClass(Class<T> ifc) {
-        return null;
-    }
-
-    @Override
-    public Reflections getScanner() {
-        return null;
-    }
 
     @Override
     @SneakyThrows
@@ -54,20 +45,5 @@ public class ValueConfigurator implements BeanConfigurator {
                 field.set(t, value);
             }
         }
-
-
-
-//    @Override
-//    public <T> Class<? extends T> getImplClass(Class<T> ifc) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Reflections getScanner() {
-//        return null;
-//    }
-
-
-
     }
 }

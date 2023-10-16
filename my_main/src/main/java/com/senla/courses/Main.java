@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Map;
 
 import static java.util.logging.LogManager.*;
 
@@ -37,7 +38,8 @@ public class Main {
 //        logger.warn("Program starts. This is warn message");
 
         AppContext applicationContext = Starter.run(List.of("com.senla.courses.controller", "com.senla.courses.service",
-                "com.senla.courses.repository", "com.senla.courses.util"));
+                "com.senla.courses.repository", "com.senla.courses.util", "com.senla.courses"), Map.of(
+                ParametersHolder.class, ParametersHolderImpl.class));
 
 //        logger.info("Context have been Created");
 
