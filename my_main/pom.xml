@@ -4,7 +4,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>my_main</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Archetype - main</name>
     <url>http://maven.apache.org</url>
 
@@ -38,25 +38,39 @@
             <version>4.2.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.senla</groupId>
+            <artifactId>my_di</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
+<!--            <plugin>-->
+<!--                <groupId>org.liquibase</groupId>-->
+<!--                <artifactId>liquibase-maven-plugin</artifactId>-->
+<!--                <version>4.2.0</version>-->
+<!--                <configuration>-->
+<!--                    <propertyFile>liquibase/liquibase.properties</propertyFile>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>id_compile</id>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>update</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.2.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <propertyFile>liquibase/liquibase.properties</propertyFile>
+                    <source>9</source>
+                    <target>9</target>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>id_compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

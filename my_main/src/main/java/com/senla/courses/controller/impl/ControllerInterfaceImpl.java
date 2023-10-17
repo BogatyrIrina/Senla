@@ -1,17 +1,30 @@
 package com.senla.courses.controller.impl;
 
+import com.senla.courses.annotation.Autowire;
+import com.senla.courses.annotation.Component;
+import com.senla.courses.annotation.PostConstruct;
 import com.senla.courses.controller.ControllerInterface;
 import com.senla.courses.service.ServiceInterface;
 
+
+@Component
 public class ControllerInterfaceImpl implements ControllerInterface {
-    private final ServiceInterface serviceInterface;
+    @Autowire
+    private ServiceInterface serviceInterface;
+    private String appender;
 
     public ControllerInterfaceImpl(ServiceInterface serviceInterface) {
+
         this.serviceInterface = serviceInterface;
+    }
+
+    @PostConstruct
+    public void init() {
+        appender = " Awesome!";
     }
 
     @Override
     public void start() {
-        System.out.println(serviceInterface.execute());
+        System.out.println(serviceInterface.execute() + appender);
     }
 }
