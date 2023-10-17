@@ -14,6 +14,7 @@ public class ControllerInterfaceImpl implements ControllerInterface {
     private String appender;
 
     public ControllerInterfaceImpl(ServiceInterface serviceInterface) {
+
         this.serviceInterface = serviceInterface;
     }
 

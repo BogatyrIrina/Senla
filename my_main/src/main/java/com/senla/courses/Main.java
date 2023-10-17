@@ -38,8 +38,7 @@ public class Main {
 //        logger.warn("Program starts. This is warn message");
 
         AppContext applicationContext = Starter.run(List.of("com.senla.courses.controller", "com.senla.courses.service",
-                "com.senla.courses.repository", "com.senla.courses.util", "com.senla.courses"), Map.of(
-                ParametersHolder.class, ParametersHolderImpl.class));
+                "com.senla.courses.repository", "com.senla.courses.util", "com.senla.courses"));
 
 //        logger.info("Context have been Created");
 
