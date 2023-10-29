@@ -2,7 +2,7 @@ package com.senla.courses.service.impl;
 
 import com.senla.courses.dto.*;
 import com.senla.courses.entity.User;
-import com.senla.courses.mapper.UserMapper;
+import com.senla.courses.mapper.impl.UserMapperImpl;
 import com.senla.courses.repository.UserRepository;
 import com.senla.courses.service.UserService;
 import lombok.NoArgsConstructor;
@@ -10,17 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @NoArgsConstructor
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserMapper userMapper;
+    private UserMapperImpl userMapper;
+
     @Override
     public UserDto getUserById(Long id) {
         User user = userRepository.getUser(id);
-        return userMapper.convertToDestination(user);
+        return userMapper.toDto(user);
     }
 
     @Override
@@ -31,30 +33,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = userMapper.convertToSource(userDto);
+        User user = userMapper.toEntity(userDto);
         User savedUser = userRepository.saveUser(user);
-        return userMapper.convertToDestination(savedUser);
+        return userMapper.toDto(savedUser);
     }
-
-//    public Long createUser(UserDto userDto){
-//        User user = userMapper.convertToSource(userDto);
-//        Long userId = userRepository.saveUser(user);
-//        return userId;
-//    }
+    
     @Override
     public UserDto modifyUser(UserDto userDto) {
-        if (userDto.getId() == null){
+        if (userDto.getId() == null) {
             throw new IllegalArgumentException("User id can not be null");
         }
-        User user = userMapper.convertToSource(userDto);
+        User user = userMapper.toEntity(userDto);
         User modifyUser = userRepository.saveUser(user);
-        return userMapper.convertToDestination(modifyUser);
+        return userMapper.toDto(modifyUser);
     }
 
     @Override
     public boolean delete(UserDto userDto) {
-        User user = userMapper.convertToSource(userDto);
-        try{
+        User user = userMapper.toEntity(userDto);
+        try {
             userRepository.deleteUser(user.getId());
             return true;
         } catch (Exception e) {

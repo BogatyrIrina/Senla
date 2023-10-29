@@ -33,11 +33,11 @@ public class UserRepositoryImpl implements UserRepository {
         return userList;
     }
 
-    public Long saveUser(User user) {
+    public User saveUser(User user) {
         user.setId(nextId);
         userList.add(user);
         nextId++;
-        return user.getId();
+        return user;
     }
 
     public User modifyUser(User user, Long id) {
