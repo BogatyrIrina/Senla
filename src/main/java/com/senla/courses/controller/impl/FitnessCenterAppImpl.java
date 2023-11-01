@@ -15,6 +15,5 @@ public class FitnessCenterAppImpl implements FitnessCenterApp {
 
     @Override
     public void run() {
-
     }
 }
