@@ -1,46 +1,57 @@
 package com.senla.courses.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senla.courses.dto.UserDto;
 import com.senla.courses.mapper.UserMapper;
 import com.senla.courses.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
+    private final ObjectMapper objectMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
-        this.userService = userService;
-        this.userMapper = userMapper;
+    @SneakyThrows
+    public String create(UserDto userDto) {
+        UserDto response = userMapper.toDto(userService.createUser(userMapper.toEntity(userDto)));
+
+        return objectMapper.writeValueAsString(response);
     }
 
+    @SneakyThrows
+    public String users() {
+        Collection<UserDto> response = userMapper.toDtoList(userService.getAllUsers());
 
-    public List<UserDto> users() {
-        return userService.getAllUsers();
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response);
     }
 
-    public UserDto getUserById(Long id) {
-        return userService.getUserById(id);
+    @SneakyThrows
+    public String getUserById(Long id) {
+        UserDto response = userMapper.toDto(userService.getUserById(id));
+
+        return objectMapper.writeValueAsString(response);
     }
 
-    public UserDto save(UserDto userDto) {
-        return userService.createUser(userDto);
+    @SneakyThrows
+    public String update(UserDto userDto) {
+        UserDto response = userMapper.toDto(userService.modifyUser(userMapper.toEntity(userDto)));
+
+        return objectMapper.writeValueAsString(response);
     }
 
-    public UserDto update(UserDto updateUserDTO) {
-        return userService.modifyUser(updateUserDTO);
-    }
-
-    public Map<String, Boolean> delete(UserDto userDto) {
+    @SneakyThrows
+    public String delete(Long id) {
         Map<String, Boolean> response = new HashMap<>();
-        response.put("delete",userService.delete(userDto));
-        return response;
+        response.put("delete", userService.delete(id));
+        return objectMapper.writeValueAsString(response);
     }
-
-
 }
