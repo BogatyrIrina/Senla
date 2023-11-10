@@ -1,7 +1,6 @@
 package com.senla.courses.repository.impl;
 
 import com.senla.courses.entity.Trainer;
-import com.senla.courses.entity.User;
 import com.senla.courses.repository.TrainerRepository;
 
 import java.util.ArrayList;

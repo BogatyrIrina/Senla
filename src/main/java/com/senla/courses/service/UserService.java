@@ -1,8 +1,6 @@
 package com.senla.courses.service;
 
-import com.senla.courses.dto.*;
 import com.senla.courses.entity.User;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
@@ -12,5 +10,4 @@ public interface UserService {
     Collection<User> getAllUsers();
     User modifyUser(User user);
     boolean delete(Long id);
-//    List<UserDto> GetAllUsersByTrainersAndTraining(UsersByTrainers usersByTrainers);
 }

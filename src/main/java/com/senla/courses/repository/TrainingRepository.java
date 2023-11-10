@@ -1,6 +1,5 @@
 package com.senla.courses.repository;
 
-import com.senla.courses.entity.Trainer;
 import com.senla.courses.entity.Training;
 
 import java.util.List;

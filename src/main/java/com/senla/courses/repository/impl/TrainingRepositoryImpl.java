@@ -1,6 +1,5 @@
 package com.senla.courses.repository.impl;
 
-import com.senla.courses.entity.Trainer;
 import com.senla.courses.entity.Training;
 import com.senla.courses.repository.TrainingRepository;
 import org.springframework.stereotype.Component;

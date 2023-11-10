@@ -1,58 +1,61 @@
 package com.senla.courses;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senla.courses.controller.FitnessCenterApp;
+import com.senla.courses.service.SerDesService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.senla.courses.controller.UserController;
 import com.senla.courses.dto.UserDto;
-import com.senla.courses.service.UserService;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.io.IOException;
+
 @ComponentScan
 public class Application {
+    private static final Logger log = LogManager.getLogger(Application.class);
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args) throws IOException {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
-        UserController userController = context.getBean("userController", UserController.class);
-        ObjectMapper objectMapper = context.getBean(ObjectMapper.class);
+        UserController userController = context.getBean(UserController.class);
+        SerDesService serDesService = context.getBean(SerDesService.class);
 
-        System.out.println(userController.users());
+        log.info(userController.users());
 
-//        String userById = userController.getUserById(4L);
-//        System.out.println(userById);
+        UserDto userById = userController.getUserById(4L);
+        log.info(serDesService.serialize(userById));
 
-        System.out.println("Создание");
+        log.info("Создание");
         UserDto userDto = new UserDto();
         userDto.setUserName("John");
         userDto.setPassword("password123");
-        String newUser = userController.create(userDto);
-        System.out.println(newUser);
+        UserDto newUser = userController.create(userDto);
+        log.info(serDesService.serialize(newUser));
 
-        Long newUserId = objectMapper.readValue(newUser, UserDto.class).getId();
+        Long newUserId = newUser.getId();
 
-        System.out.println("Обновление");
+
+        log.info("Обновление");
         userDto.setId(newUserId);
         userDto.setUserName("John Black");
         userDto.setPassword("qwerty123");
-        System.out.println(userController.update(userDto));
+        log.info(serDesService.serialize(userController.update(userDto)));
 
-        System.out.println("Получение");
-        System.out.println(userController.getUserById(newUserId));
+        log.info("Получение");
+        log.info(serDesService.serialize(userController.getUserById(newUserId)));
 
-        System.out.println("Удаление");
-        System.out.println(userController.delete(newUserId));
+        log.info("Удаление");
+        log.info(userController.delete(newUserId));
 
-        System.out.println("Удаление с false");
-        System.out.println(userController.delete(555L));
+//        log.info("Удаление с false");
+//        log.info(userController.delete(555L));
 
-        System.out.println("Получить всех пользователей");
-        System.out.println(userController.users());
+        log.info("Получить всех пользователей");
+        log.info(serDesService.serialize(userController.users()));
     }
 }
