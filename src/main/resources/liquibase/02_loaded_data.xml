@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="2023-11-21 19:10" author="Irina Bogatyr">
+        <sql>
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Иван', 'Петров', 'test@mail.ru');
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Петр', 'Иванов', 'mail@test.ru');
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Сергей', 'Иванов', 'sergeymail@test.ru');
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Ирина', 'Иванова', 'irinamail@test.ru');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

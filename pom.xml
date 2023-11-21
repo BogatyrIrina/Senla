@@ -19,9 +19,26 @@
         <log4j.version>2.20.0</log4j.version>
         <liquibase.version>4.23.2</liquibase.version>
         <maven.compiler.release>17</maven.compiler.release>
+        <aspectj.version>1.9.20.1</aspectj.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>

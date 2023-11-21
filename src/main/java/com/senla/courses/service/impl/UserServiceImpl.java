@@ -1,5 +1,6 @@
 package com.senla.courses.service.impl;
 
+import com.senla.courses.aop.Transaction;
 import com.senla.courses.entity.User;
 import com.senla.courses.repository.UserRepository;
 import com.senla.courses.service.UserService;
@@ -28,11 +29,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.getAllUsers();
     }
 
+    @Transaction
     @Override
     public User createUser(User user) {
         return userRepository.saveUser(user);
     }
 
+    @Transaction
     @Override
     public User modifyUser(User user) {
         if (user.getId() == null) {
@@ -41,6 +44,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.modifyUser(user);
     }
 
+    @Transaction
     @Override
     public boolean delete(Long id) {
         if (id == null) {
