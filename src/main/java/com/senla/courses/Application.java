@@ -33,7 +33,7 @@ public class Application {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
         UserController userController = context.getBean(UserController.class);
-//        Collection<UserDto> usersBeforeTest = userController.users();
+        Collection<UserDto> usersBeforeTest = userController.users();
 //        assertEquals(4, usersBeforeTest.size());
 
         int size = 50;
@@ -63,58 +63,58 @@ public class Application {
             executorService.shutdown();
         }
 
-//        Collection<UserDto> usersAfterTest = userController.users();
-//        assertEquals( size + usersBeforeTest.size(), usersAfterTest.size());
+        Collection<UserDto> usersAfterTest = userController.users();
+        assertEquals(size + usersBeforeTest.size(), usersAfterTest.size());
 
-        System.out.println(userController.users());
-        System.out.println();
+        log.info(userController.users());
         UserDto userById = userController.getUserById(4L);
-        System.out.println(userById);
+        log.info(userById);
 
-        System.out.println("Создание");
+        log.info("Создание");
         UserDto userDto = new UserDto();
         userDto.setUserName("John");
         userDto.setUserEmail("John@mail.com");
         userDto.setPassword("password123");
         UserDto newUser = userController.create(userDto);
-        System.out.println(newUser);
+        log.info(newUser);
 
         Long newUserId = newUser.getId();
 
-        System.out.println("Обновление");
+        log.info("Обновление");
         userDto.setId(newUserId);
         userDto.setUserName("John Black");
         userDto.setPassword("qwerty123");
-        System.out.println(userController.update(userDto));
+        log.info(userController.update(userDto));
 
-        System.out.println("Получение");
-        System.out.println(userController.getUserById(newUserId));
+        log.info("Получение");
+        log.info(userController.getUserById(newUserId));
 
-        System.out.println("Удаление");
-        System.out.println(userController.delete(newUserId));
+        log.info("Удаление");
+        log.info(userController.delete(newUserId));
 
         try {
-            System.out.println("Поиск кого удалили");
-            System.out.println(userController.getUserById(newUserId));
+            log.info("Поиск кого удалили");
+            log.info(userController.getUserById(newUserId));
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error(ex.getMessage());
         }
 
         try {
-            System.out.println("Удаление с false");
-            System.out.println(userController.delete(555L));
+            log.info("Удаление с false");
+            log.info(userController.delete(555L));
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error(ex.getMessage());
         }
 
-        System.out.println("Получить всех пользователей");
+        log.info("Получить всех пользователей");
         Collection<UserDto> users = userController.users();
-        System.out.println(users);
+        log.info(users);
 
 //        вызываем закрытие всех connections через @preDestroy аннотацию
+//        Закрыть все открытые коннекты при закрытии контекста приложения.
         context.close();
 
-        System.out.println("done");
+        log.info("done");
     }
 
     private static void assertEquals(int expected, int actual) {

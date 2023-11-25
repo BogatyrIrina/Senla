@@ -14,4 +14,22 @@
         </sql>
     </changeSet>
 
+    <changeSet id="2023-11-25 14:50" author="Irina Bogatyr">
+        <sql>
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Семен', 'Семенов', 'фитнес-тренер');
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Василий', 'Васильев', 'персональный тренер');
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Дмитрий', 'Дмитриев', 'корпоративный тренер');
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Дарья', 'Дарьева', 'мастер-тренер');
+        </sql>
+    </changeSet>
+
+    <changeSet id="2023-11-25 14:55" author="Irina Bogatyr">
+        <sql>
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аэробная тренировка', '40 мин');
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'силовая тренировка', '30 мин');
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аквааэробика', '20 мин');
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'тимбилдинг', '50 мин');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

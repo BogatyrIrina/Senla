@@ -12,9 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -42,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user = new User();
                 user.setId(rs.getLong("id"));
                 user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("surname"));
+                user.setSurname(rs.getString("surname"));
                 user.setEmail(rs.getString("email"));
                 return user;
             }
@@ -68,7 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
                 User user = new User();
                 user.setId(rs.getLong("id"));
                 user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("surname"));
+                user.setSurname(rs.getString("surname"));
                 user.setEmail(rs.getString("email"));
 
                 users.add(user);

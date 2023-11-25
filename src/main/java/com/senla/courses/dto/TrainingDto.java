@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainingDto {
-    private String name;
-    private String time;
+    private Long id;
+    private String trainingName;
+    private String TrainingTime;
 }

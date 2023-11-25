@@ -16,5 +16,5 @@ public class User {
     private String surname;
     private String passwordHash;
     private String email;
-    private List<Trainer> trainerList;
+    private List<Trainer> trainers;
 }
