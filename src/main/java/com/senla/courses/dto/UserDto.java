@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,5 +20,6 @@ public class UserDto {
     private String userEmail;
     @ToString.Exclude
     private String password;
+    private List<TrainerDto> trainers;
 
 }

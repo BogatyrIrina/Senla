@@ -1,8 +1,6 @@
 package com.senla.courses.controller;
 
 import com.senla.courses.dto.UserDto;
-import com.senla.courses.entity.User;
-import org.springframework.stereotype.Controller;
 
 import java.util.Collection;
 

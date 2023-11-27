@@ -1,0 +1,16 @@
+version: "3.17"
+
+services:
+  my-study-postgres:
+    image: postgres
+    container_name: my_study_postgres_db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "my-study-db"
+    restart: always
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - ./docker/postgres/data:/var/lib/postgresql/data

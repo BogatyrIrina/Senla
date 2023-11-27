@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface TrainingRepository {
     Training getTraining(Long id);
-    List<Training> getAllTraining();
-    Long saveTraining(Training training);
+    List<Training> getAllTrainings();
+    Training saveTraining(Training training);
 
-    Training modifyTraining(Training training, Long id);
-    void deleteTraining(Long id);
+    Training modifyTraining(Training training);
+    boolean deleteTraining(Long id);
 }
