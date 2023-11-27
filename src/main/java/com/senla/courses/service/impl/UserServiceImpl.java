@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        User user = userRepository.getUser(id);
+        User user = userRepository.getById(id);
         if (user == null) {
             throw new IllegalArgumentException("Попытка получить не существующего пользователя с id=" + id);
         }
