@@ -1,6 +1,10 @@
 package com.senla.courses.mapper;
 
+import com.senla.courses.dto.TrainerDto;
+import com.senla.courses.dto.TrainingDto;
 import com.senla.courses.dto.UserDto;
+import com.senla.courses.entity.Trainer;
+import com.senla.courses.entity.Training;
 import com.senla.courses.entity.User;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -18,12 +22,12 @@ public interface UserMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "userName", source = "name")
     @Mapping(target = "userEmail", source = "email")
-    @Mapping(target = "password", source = "passwordHash")
+    @Mapping(target = "password", source = "password")
     UserDto toDto(User user);
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "userName")
     @Mapping(target = "email", source = "userEmail")
-    @Mapping(target = "passwordHash", source = "password")
+    @Mapping(target = "password", source = "password")
     User toEntity(UserDto userDto);
     default Collection<UserDto> toDtoList(Collection<User> users) {
         List<UserDto> userDtoList = new ArrayList<>();
@@ -33,6 +37,34 @@ public interface UserMapper {
             }
         }
         return userDtoList;
+    }
+    default TrainerDto trainerDtoToTrainer(Trainer trainer) {
+        if (trainer == null) {
+            return null;
+        }
+
+        TrainerDto trainerDto = new TrainerDto();
+
+        trainerDto.setId(trainer.getId());
+        trainerDto.setTrainerName(trainer.getName());
+        trainerDto.setTrainerSurname(trainer.getSurname());
+        trainerDto.setSpecialization(trainer.getSpecialization());
+
+        return trainerDto;
+    }
+
+    default TrainingDto trainingToTrainingDto(Training training) {
+        if (training == null) {
+            return null;
+        }
+
+        TrainingDto trainingDto = new TrainingDto();
+
+        trainingDto.setId(training.getId());
+        trainingDto.setTrainingName(training.getName());
+        trainingDto.setTrainingTime(training.getTime());
+
+        return trainingDto;
     }
 }
 

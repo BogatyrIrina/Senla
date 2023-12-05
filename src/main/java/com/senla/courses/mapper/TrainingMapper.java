@@ -1,7 +1,11 @@
 package com.senla.courses.mapper;
 
+import com.senla.courses.dto.TrainerDto;
 import com.senla.courses.dto.TrainingDto;
+import com.senla.courses.dto.UserDto;
+import com.senla.courses.entity.Trainer;
 import com.senla.courses.entity.Training;
+import com.senla.courses.entity.User;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -31,5 +35,33 @@ public interface TrainingMapper {
             }
         }
         return trainingDtoList;
+    }
+    default UserDto userToUserDto(User user) {
+        if (user == null) {
+            return null;
+        }
+
+        UserDto userDto = new UserDto();
+
+        userDto.setId(user.getId());
+        userDto.setUserName(user.getName());
+        userDto.setUserEmail(user.getEmail());
+
+        return userDto;
+    }
+
+    default TrainerDto trainerDtoToTrainer(Trainer trainer) {
+        if (trainer == null) {
+            return null;
+        }
+
+        TrainerDto trainerDto = new TrainerDto();
+
+        trainerDto.setId(trainer.getId());
+        trainerDto.setTrainerName(trainer.getName());
+        trainerDto.setTrainerSurname(trainer.getSurname());
+        trainerDto.setSpecialization(trainer.getSpecialization());
+
+        return trainerDto;
     }
 }

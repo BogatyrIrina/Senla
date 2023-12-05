@@ -7,6 +7,7 @@ import com.senla.courses.mapper.TrainingMapper;
 import com.senla.courses.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -22,6 +23,7 @@ public class TrainingControllerImpl implements TrainingController {
         return trainingMapper.toDto(createdTraining);
     }
 
+    @Transactional
     @Override
     public TrainingDto getTrainingById(Long id) {
         Training training = trainingService.getTrainingById(id);
@@ -37,8 +39,8 @@ public class TrainingControllerImpl implements TrainingController {
     @Override
     public TrainingDto update(TrainingDto trainingDto) {
         Training training = trainingService.getTrainingById(trainingDto.getId());
-        if (training== null) {
-            throw new RuntimeException("Тренировка с идентификатором " + trainingDto.getId()+ " не найденa");
+        if (training == null) {
+            throw new RuntimeException("Тренировка с идентификатором " + trainingDto.getId() + " не найденa");
         }
         training.setName(trainingDto.getTrainingName());
         training.setTime(trainingDto.getTrainingTime());

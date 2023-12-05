@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,4 +15,6 @@ public class TrainingDto {
     private Long id;
     private String trainingName;
     private String TrainingTime;
+    private TrainerDto trainer;
+    private List<UserDto> users;
 }
