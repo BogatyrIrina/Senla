@@ -7,6 +7,7 @@ import java.util.Collection;
 public interface UserController {
     UserDto create(UserDto userDto);
     UserDto getUserById(Long id);
+    UserDto getUserByEmail(String email);
     Collection<UserDto> users();
     UserDto update(UserDto userDto);
     boolean delete(Long id);

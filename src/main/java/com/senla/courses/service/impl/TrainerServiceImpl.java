@@ -1,11 +1,13 @@
 package com.senla.courses.service.impl;
 
-import com.senla.courses.aop.Transaction;
+import com.senla.courses.dto.TrainerDto;
 import com.senla.courses.entity.Trainer;
+import com.senla.courses.mapper.TrainerMapper;
 import com.senla.courses.repository.TrainerRepository;
 import com.senla.courses.service.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -14,43 +16,59 @@ import java.util.Collection;
 public class TrainerServiceImpl implements TrainerService {
 
     private final TrainerRepository trainerRepository;
+    private final TrainerMapper trainerMapper;
 
-    @Transaction
+    @Transactional
     @Override
-    public Trainer createTrainer(Trainer trainer) {
-        return trainerRepository.saveTrainer(trainer);
+    public TrainerDto createTrainer(TrainerDto trainerDto) {
+        Trainer trainer = trainerMapper.toEntity(trainerDto);
+        Trainer createdTrainer = trainerRepository.save(trainer);
+        return trainerMapper.toDto(createdTrainer);
     }
 
+    @Transactional
     @Override
-    public Trainer getTrainerById(Long id) {
-        Trainer trainer = trainerRepository.getTrainer(id);
+    public TrainerDto getTrainerById(Long id) {
+        Trainer trainer = trainerRepository.getById(id);
         if (trainer == null) {
-            throw new IllegalArgumentException("Попытка получить не существующего тренера с id=" + id);
+            throw new IllegalArgumentException("Попытка получить не существующего тренера с id = " + id);
         }
-        return trainer;
+        return trainerMapper.toDto(trainer);
     }
 
     @Override
-    public Collection<Trainer> getAllTrainers() {
-        return trainerRepository.getAllTrainers();
+    public Collection<TrainerDto> getAllTrainers() {
+        return trainerMapper.toDtoList(trainerRepository.getAll());
     }
 
-    @Transaction
+    @Transactional
     @Override
-    public Trainer modifyTrainer(Trainer trainer) {
-        if (trainer.getId() == null) {
+    public TrainerDto modifyTrainer(TrainerDto trainerDto) {
+        if (trainerDto.getId() == null) {
             throw new IllegalArgumentException("Trainer id can not be null");
         }
-        return trainerRepository.modifyTrainer(trainer);
+        Trainer trainer = trainerRepository.getById(trainerDto.getId());
+        if (trainer == null) {
+            throw new RuntimeException("Тренер с идентификатором " + trainerDto.getId() + " не найден");
+        }
+
+        trainer.setName(trainerDto.getTrainerName());
+        trainer.setSpecialization(trainerDto.getSpecialization());
+        Trainer updateTrainer = trainerRepository.update(trainer);
+
+        return trainerMapper.toDto(updateTrainer);
     }
 
-    @Transaction
+    @Transactional
     @Override
     public boolean delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("User id can not be null");
         }
-
-        return trainerRepository.deleteTrainer(id);
+        Trainer trainer = trainerRepository.getById(id);
+        if (trainer == null) {
+            throw new RuntimeException("Тренер с идентификатором " + id + " не найден");
+        }
+        return trainerRepository.delete(id);
     }
 }

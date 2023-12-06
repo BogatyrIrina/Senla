@@ -17,5 +17,5 @@ public class TrainerDto {
     public String trainerSurname;
     public String specialization;
     public List<UserDto> users;
-    public List<TrainingDto> trainings;
+    public TrainingDto training;
 }

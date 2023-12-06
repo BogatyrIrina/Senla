@@ -21,5 +21,7 @@ public class UserDto {
     @ToString.Exclude
     private String password;
     private List<TrainerDto> trainers;
+    private List<TrainingDto> trainings;
+    private List<AddressDto> addresses;
 
 }

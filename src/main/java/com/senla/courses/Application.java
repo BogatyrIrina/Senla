@@ -1,6 +1,10 @@
 package com.senla.courses;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senla.courses.controller.TrainerController;
+import com.senla.courses.controller.TrainingController;
+import com.senla.courses.dto.TrainerDto;
+import com.senla.courses.dto.TrainingDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.senla.courses.controller.UserController;
@@ -8,17 +12,8 @@ import com.senla.courses.dto.UserDto;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-@EnableAspectJAutoProxy
 @PropertySource("classpath:application.properties")
 @ComponentScan
 public class Application {
@@ -28,93 +23,26 @@ public class Application {
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
         UserController userController = context.getBean(UserController.class);
-        Collection<UserDto> usersBeforeTest = userController.users();
-//        assertEquals(4, usersBeforeTest.size());
+        TrainerController trainerController = context.getBean(TrainerController.class);
+        TrainingController trainingController = context.getBean(TrainingController.class);
 
-        int size = 50;
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-        CountDownLatch countDownLatch = new CountDownLatch(size);
+        //fetch Named Entity Graph
+        TrainingDto trainingById = trainingController.getTrainingById(1L);
 
-        try {
-            for (int i = 0; i < size; i++) {
-                int finalI = i;
-                Runnable task = new Runnable() {
-                    @Override
-                    public void run() {
-                        UserDto userDto = new UserDto();
-                        userDto.setUserName("John " + finalI);
-                        userDto.setUserEmail("John@mail.com");
-                        userDto.setPassword("password123");
-                        UserDto newUser = userController.create(userDto);
-                        countDownLatch.countDown();
-                    }
-                };
-                executorService.submit(task);
-            }
-            countDownLatch.await();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            executorService.shutdown();
-        }
+        //fetch Dynamic Entity Graph
+        TrainerDto trainerById = trainerController.getTrainerById(2L);
 
-        Collection<UserDto> usersAfterTest = userController.users();
-        assertEquals(size + usersBeforeTest.size(), usersAfterTest.size());
+        //fetch в Criteria API
+        UserDto userById = userController.getUserById(1L);
 
-        log.info(userController.users());
-        UserDto userById = userController.getUserById(4L);
-        log.info(userById);
+        //запрос  fetch в JPQL
+        UserDto userByEmail = userController.getUserByEmail("sergeymail@test.ru");
 
-        log.info("Создание");
-        UserDto userDto = new UserDto();
-        userDto.setUserName("John");
-        userDto.setUserEmail("John@mail.com");
-        userDto.setPassword("password123");
-        UserDto newUser = userController.create(userDto);
-        log.info(newUser);
-
-        Long newUserId = newUser.getId();
-
-        log.info("Обновление");
-        userDto.setId(newUserId);
-        userDto.setUserName("John Black");
-        userDto.setPassword("qwerty123");
-        log.info(userController.update(userDto));
-
-        log.info("Получение");
-        log.info(userController.getUserById(newUserId));
-
-        log.info("Удаление");
-        log.info(userController.delete(newUserId));
-
-        try {
-            log.info("Поиск кого удалили");
-            log.info(userController.getUserById(newUserId));
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-        }
-
-        try {
-            log.info("Удаление с false");
-            log.info(userController.delete(555L));
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-        }
-
-        log.info("Получить всех пользователей");
-        Collection<UserDto> users = userController.users();
-        log.info(users);
-
-//        вызываем закрытие всех connections через @preDestroy аннотацию
-//        Закрыть все открытые коннекты при закрытии контекста приложения.
         context.close();
-
-        log.info("done");
     }
 
     private static void assertEquals(int expected, int actual) {

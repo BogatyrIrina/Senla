@@ -1,11 +1,13 @@
 package com.senla.courses.service.impl;
 
-import com.senla.courses.aop.Transaction;
+import com.senla.courses.dto.UserDto;
 import com.senla.courses.entity.User;
+import com.senla.courses.mapper.UserMapper;
 import com.senla.courses.repository.UserRepository;
 import com.senla.courses.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -14,44 +16,73 @@ import java.util.Collection;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
+    @Transactional
     @Override
-    public User getUserById(Long id) {
-        User user = userRepository.getUser(id);
+    public UserDto getUserById(Long id) {
+        User user = userRepository.getById(id);
         if (user == null) {
             throw new IllegalArgumentException("Попытка получить не существующего пользователя с id=" + id);
         }
-        return user;
+        return userMapper.toDto(user);
     }
 
+    @Transactional
     @Override
-    public Collection<User> getAllUsers() {
-        return userRepository.getAllUsers();
-    }
-
-    @Transaction
-    @Override
-    public User createUser(User user) {
-        return userRepository.saveUser(user);
-    }
-
-    @Transaction
-    @Override
-    public User modifyUser(User user) {
-        if (user.getId() == null) {
-            throw new IllegalArgumentException("User id can not be null");
+    public Collection<UserDto> getAllUsers() {
+        var users = userRepository.getAll();
+        for (User user : users) {
+            System.out.println(user.getTrainers());
         }
-        return userRepository.modifyUser(user);
+        return userMapper.toDtoList(users);
     }
 
-    @Transaction
+    @Transactional
+    @Override
+    public UserDto createUser(UserDto userDto) {
+        User user = userMapper.toEntity(userDto);
+        User cseatedUser = userRepository.save(user);
+        return userMapper.toDto(cseatedUser);
+    }
+
+    @Transactional
+    @Override
+    public UserDto modifyUser(UserDto userDto) {
+
+        User user = userRepository.getById(userDto.getId());
+
+        if (user == null) {
+            throw new RuntimeException("Пользователь с идентификатором " + userDto.getId() + " не найден");
+        }
+        user.setName(userDto.getUserName());
+        user.setEmail(userDto.getUserEmail());
+
+        User updateUser = userRepository.update(user);
+
+        return userMapper.toDto(updateUser);
+    }
+
+    @Transactional
     @Override
     public boolean delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("User id can not be null");
         }
-
-        return userRepository.deleteUser(id);
+        User user = userRepository.getById(id);
+        if (user == null) {
+            throw new RuntimeException("Пользователь с идентификатором " + id + " не найден");
+        }
+        return userRepository.delete(id);
+    }
+    @Transactional
+    @Override
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.getByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("Пользователь с email " + email + " не найден");
+        }
+        return userMapper.toDto(user);
     }
 
 }

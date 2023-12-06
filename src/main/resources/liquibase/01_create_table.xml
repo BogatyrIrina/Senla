@@ -55,4 +55,39 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2023-12-02 14:55" author="Irina Bogatyr">
+        <createTable tableName="user_trainer" schemaName="my_study">
+            <column name="user_id" type="BIGINT">
+            </column>
+            <column name="trainer_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-12-02 15:00" author="Irina Bogatyr">
+        <createTable tableName="user_training" schemaName="my_study">
+            <column name="user_id" type="BIGINT">
+            </column>
+            <column name="training_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-12-02 15:10" author="Irina Bogatyr">
+        <addColumn schemaName="my_study" tableName="trainings">
+            <column name="trainer_id" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2023-12-02 15:20" author="Irina Bogatyr">
+        <sql dbms="postgresql" endDelimiter=";">
+            CREATE SEQUENCE IF NOT EXISTS my_study.address_id_seq;
+        </sql>
+        <createTable tableName="address" schemaName="my_study">
+            <column name="id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="address" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
