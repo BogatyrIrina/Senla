@@ -2,6 +2,7 @@ package com.senla.courses.service.impl;
 
 import com.senla.courses.dto.UserDto;
 import com.senla.courses.entity.User;
+import com.senla.courses.exeption.UserNotFoundException;
 import com.senla.courses.mapper.UserMapper;
 import com.senla.courses.repository.UserRepository;
 import com.senla.courses.service.UserService;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserById(Long id) {
         User user = userRepository.getById(id);
         if (user == null) {
-            throw new IllegalArgumentException("Попытка получить не существующего пользователя с id=" + id);
+            throw new UserNotFoundException("Попытка получить не существующего пользователя с id= [" + id + "]");
         }
         return userMapper.toDto(user);
     }
