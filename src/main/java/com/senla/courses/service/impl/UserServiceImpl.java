@@ -32,11 +32,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public Collection<UserDto> getAllUsers() {
-        var users = userRepository.getAll();
-        for (User user : users) {
-            System.out.println(user.getTrainers());
-        }
-        return userMapper.toDtoList(users);
+        return userMapper.toDtoList(userRepository.getAll());
     }
 
     @Transactional

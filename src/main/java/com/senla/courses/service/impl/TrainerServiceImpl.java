@@ -2,6 +2,8 @@ package com.senla.courses.service.impl;
 
 import com.senla.courses.dto.TrainerDto;
 import com.senla.courses.entity.Trainer;
+import com.senla.courses.exeption.TrainerNotFoundException;
+import com.senla.courses.exeption.UserNotFoundException;
 import com.senla.courses.mapper.TrainerMapper;
 import com.senla.courses.repository.TrainerRepository;
 import com.senla.courses.service.TrainerService;
@@ -31,7 +33,7 @@ public class TrainerServiceImpl implements TrainerService {
     public TrainerDto getTrainerById(Long id) {
         Trainer trainer = trainerRepository.getById(id);
         if (trainer == null) {
-            throw new IllegalArgumentException("Попытка получить не существующего тренера с id = " + id);
+            throw new TrainerNotFoundException("Попытка получить не существующего тренера с id = " + id);
         }
         return trainerMapper.toDto(trainer);
     }
@@ -45,7 +47,7 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerDto modifyTrainer(TrainerDto trainerDto) {
         if (trainerDto.getId() == null) {
-            throw new IllegalArgumentException("Trainer id can not be null");
+            throw new  TrainerNotFoundException("Trainer id can not be null");
         }
         Trainer trainer = trainerRepository.getById(trainerDto.getId());
         if (trainer == null) {
@@ -63,11 +65,11 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public boolean delete(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("User id can not be null");
+            throw new TrainerNotFoundException("Trainer id can not be null");
         }
         Trainer trainer = trainerRepository.getById(id);
         if (trainer == null) {
-            throw new RuntimeException("Тренер с идентификатором " + id + " не найден");
+            throw new TrainerNotFoundException("Тренер с идентификатором " + id + " не найден");
         }
         return trainerRepository.delete(id);
     }

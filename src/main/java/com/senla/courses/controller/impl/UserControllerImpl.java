@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-//@Controller
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
@@ -31,7 +30,6 @@ public class UserControllerImpl implements UserController {
         return userService.getUserById(id);
     }
 
-    @Override
     @GetMapping("/email/{email}")
     public UserDto getUserByEmail(@PathVariable("email") String email) {
         return userService.getUserByEmail(email);

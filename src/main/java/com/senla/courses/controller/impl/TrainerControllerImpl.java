@@ -4,35 +4,43 @@ import com.senla.courses.controller.TrainerController;
 import com.senla.courses.dto.TrainerDto;
 import com.senla.courses.service.TrainerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-@Controller
 @RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/trainers")
 public class TrainerControllerImpl implements TrainerController {
     private final TrainerService trainerService;
-    @Override
-    public TrainerDto create(TrainerDto trainerDto) {
+    @PostMapping
+    public TrainerDto create(@RequestBody TrainerDto trainerDto) {
         return trainerService.createTrainer(trainerDto);
     }
 
-    @Override
-    public TrainerDto getTrainerById(Long id) {
+    @GetMapping("/{id}")
+    public TrainerDto getTrainerById(@PathVariable("id") Long id) {
         return trainerService.getTrainerById(id);
     }
 
-    @Override
+    @GetMapping
     public Collection<TrainerDto> trainers() {
         return trainerService.getAllTrainers();
     }
 
-    @Override
-    public TrainerDto update(TrainerDto trainerDto) {
+    @PutMapping
+    public TrainerDto update(@RequestBody TrainerDto trainerDto) {
         return trainerService.modifyTrainer(trainerDto);
     }
 
-    @Override
-    public boolean delete(Long id) {
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") Long id) {
         return trainerService.delete(id);
     }
 }

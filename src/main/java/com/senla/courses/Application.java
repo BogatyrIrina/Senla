@@ -10,10 +10,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @PropertySource("classpath:application.properties")
 @ComponentScan
 public class Application {
-
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
-
 }

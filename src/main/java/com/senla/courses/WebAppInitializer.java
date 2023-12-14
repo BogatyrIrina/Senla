@@ -1,6 +1,5 @@
 package com.senla.courses;
 
-import com.senla.courses.config.HibernateConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRegistration;
