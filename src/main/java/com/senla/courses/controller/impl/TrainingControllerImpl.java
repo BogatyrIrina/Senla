@@ -2,59 +2,46 @@ package com.senla.courses.controller.impl;
 
 import com.senla.courses.controller.TrainingController;
 import com.senla.courses.dto.TrainingDto;
-import com.senla.courses.entity.Training;
-import com.senla.courses.mapper.TrainingMapper;
 import com.senla.courses.service.TrainingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-@Controller
 @RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/trainings")
 public class TrainingControllerImpl implements TrainingController {
     private final TrainingService trainingService;
-    private final TrainingMapper trainingMapper;
-    @Override
-    public TrainingDto create(TrainingDto trainingDto) {
-        Training training = trainingMapper.toEntity(trainingDto);
-        Training createdTraining = trainingService.createTraining(training);
-        return trainingMapper.toDto(createdTraining);
+    @PostMapping
+    public TrainingDto create(@RequestBody TrainingDto trainingDto) {
+        return trainingService.createTraining(trainingDto);
     }
 
-    @Transactional
-    @Override
-    public TrainingDto getTrainingById(Long id) {
-        Training training = trainingService.getTrainingById(id);
-        return trainingMapper.toDto(training);
+    @GetMapping("/{id}")
+    public TrainingDto getTrainingById(@PathVariable("id") Long id) {
+        return trainingService.getTrainingById(id);
     }
 
-    @Override
+    @GetMapping
     public Collection<TrainingDto> trainings() {
-        Collection<Training> trainings = trainingService.getAllTrainings();
-        return trainingMapper.toDtoList(trainings);
+        return trainingService.getAllTrainings();
     }
 
-    @Override
-    public TrainingDto update(TrainingDto trainingDto) {
-        Training training = trainingService.getTrainingById(trainingDto.getId());
-        if (training == null) {
-            throw new RuntimeException("Тренировка с идентификатором " + trainingDto.getId() + " не найденa");
-        }
-        training.setName(trainingDto.getTrainingName());
-        training.setTime(trainingDto.getTrainingTime());
-        Training updateTraining = trainingService.modifyTraining(training);
-        return trainingMapper.toDto(updateTraining);
+    @PutMapping
+    public TrainingDto update(@RequestBody TrainingDto trainingDto) {
+        return trainingService.modifyTraining(trainingDto);
     }
 
-    @Override
-    public boolean delete(Long id) {
-        Training training = trainingService.getTrainingById(id);
-        if (training == null) {
-            throw new RuntimeException("Тренировка с идентификатором " + id + " не найдена");
-        }
-        trainingService.delete(id);
-        return true;
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") Long id) {
+        return trainingService.delete(id);
     }
 }

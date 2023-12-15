@@ -1,6 +1,9 @@
 package com.senla.courses.service.impl;
 
+import com.senla.courses.dto.TrainingDto;
 import com.senla.courses.entity.Training;
+import com.senla.courses.exeption.TrainingNotFoundException;
+import com.senla.courses.mapper.TrainingMapper;
 import com.senla.courses.repository.TrainingRepository;
 import com.senla.courses.service.TrainingService;
 import lombok.RequiredArgsConstructor;
@@ -14,41 +17,56 @@ import java.util.Collection;
 public class TrainingServiceImpl implements TrainingService {
 
     private final TrainingRepository trainingRepository;
-   @Transactional
+    private final TrainingMapper trainingMapper;
+    @Transactional
     @Override
-    public Training createTraining(Training training) {
-        return trainingRepository.save(training);
+    public TrainingDto createTraining(TrainingDto trainingDto) {
+        Training training = trainingMapper.toEntity(trainingDto);
+        Training cseatedTraining = trainingRepository.save(training);
+        return trainingMapper.toDto(cseatedTraining);
     }
 
     @Transactional
     @Override
-    public Training getTrainingById(Long id) {
+    public TrainingDto getTrainingById(Long id) {
         Training training = trainingRepository.getById(id);
         if (training == null) {
-            throw new IllegalArgumentException("Попытка получить не существующу тренировку пользователя с id=" + id);
+            throw new TrainingNotFoundException("Попытка получить не существующую тренировку с id= [" + id + "]");
         }
-        return training;
+        return trainingMapper.toDto(training);
     }
 
     @Override
-    public Collection<Training> getAllTrainings() {
-        return trainingRepository.getAll();
+    @Transactional
+    public Collection<TrainingDto> getAllTrainings() {
+        return trainingMapper.toDtoList(trainingRepository.getAll());
     }
 
     @Transactional
     @Override
-    public Training modifyTraining(Training training) {
-        if (training.getId() == null) {
-            throw new IllegalArgumentException("Training id can not be null");
+    public TrainingDto modifyTraining(TrainingDto trainingDto) {
+        Training training = trainingRepository.getById(trainingDto.getId());
+
+        if (training == null) {
+            throw new TrainingNotFoundException("Тренировка с идентификатором " + trainingDto.getId() + " не найдена");
         }
-        return trainingRepository.update(training);
+        training.setName(trainingDto.getTrainingName());
+        training.setTime(trainingDto.getTrainingTime());
+
+        Training updateTraining = trainingRepository.update(training);
+
+        return trainingMapper.toDto(updateTraining);
     }
 
     @Transactional
     @Override
     public boolean delete(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("Training id can not be null");
+            throw new TrainingNotFoundException("Training id can not be null");
+        }
+        Training training = trainingRepository.getById(id);
+        if (training == null) {
+            throw new TrainingNotFoundException("Тренировка с идентификатором " + id + " не найдена");
         }
         return trainingRepository.delete(id);
     }

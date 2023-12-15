@@ -1,4 +1,4 @@
-package com.senla.courses.repository;
+package com.senla.courses;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

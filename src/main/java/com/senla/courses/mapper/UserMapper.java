@@ -66,5 +66,18 @@ public interface UserMapper {
 
         return trainingDto;
     }
+    default Training trainingToTrainingDto(TrainingDto trainingDto) {
+        if (trainingDto == null) {
+            return null;
+        }
+
+        Training training = new Training();
+
+        training.setId(trainingDto.getId());
+        training.setName(trainingDto.getTrainingName());
+        training.setTime(trainingDto.getTrainingTime());
+
+        return training;
+    }
 }
 

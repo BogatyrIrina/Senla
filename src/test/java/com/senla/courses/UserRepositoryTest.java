@@ -1,23 +1,27 @@
-package com.senla.courses.repository;
+package com.senla.courses;
 
-import com.senla.courses.config.LiquibaseMigration;
 import com.senla.courses.entity.Trainer;
 import com.senla.courses.entity.Training;
 import com.senla.courses.entity.User;
-import org.junit.Test;
+import com.senla.courses.repository.UserRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ContextHierarchy;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ComponentScan
-@ContextConfiguration(classes = UserRepositoryTest.class)
-@Import(value = {H2HibernateConfig.class, LiquibaseMigration.class})
+@ExtendWith(SpringExtension.class)
+@WebAppConfiguration("classpath:META-INF/web-resources")
+@ContextHierarchy(@ContextConfiguration(classes = Application.class))
+@Transactional
 public class UserRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     UserRepository userRepository;

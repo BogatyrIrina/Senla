@@ -1,13 +1,13 @@
 package com.senla.courses.service;
 
-import com.senla.courses.entity.Training;
+import com.senla.courses.dto.TrainingDto;
 
 import java.util.Collection;
 
 public interface TrainingService {
-    Training createTraining(Training training);
-    Training getTrainingById(Long id);
-    Collection<Training> getAllTrainings();
-    Training modifyTraining(Training training);
+    TrainingDto createTraining(TrainingDto trainingDto);
+    TrainingDto getTrainingById(Long id);
+    Collection<TrainingDto> getAllTrainings();
+    TrainingDto modifyTraining(TrainingDto trainingDto);
     boolean delete(Long id);
 }
