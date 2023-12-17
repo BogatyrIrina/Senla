@@ -89,5 +89,15 @@
             <column name="address" type="varchar(100)"/>
         </createTable>
     </changeSet>
+    <changeSet id="2023-12-17 22:20" author="Irina Bogatyr">
+        <sql dbms="postgresql" endDelimiter=";">
+            CREATE SEQUENCE IF NOT EXISTS my_study.users_id_seq;
+        </sql>
+        <addColumn tableName="users" schemaName="my_study">
+            <column name="role" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
