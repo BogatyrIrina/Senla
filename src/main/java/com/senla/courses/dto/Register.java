@@ -8,5 +8,5 @@ public class Register {
     private String surname;
     private String password;
     private String email;
-    private Role role;
+    private String role;
 }

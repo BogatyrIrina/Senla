@@ -12,28 +12,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-
-//@Component
-//public class BasicAuthCorsFilter extends OncePerRequestFilter {
-//
-//    @Override
-//    protected void doFilterInternal(javax.servlet.http.HttpServletRequest httpServletRequest,
-//                                    javax.servlet.http.HttpServletResponse httpServletResponse,
-//                                    javax.servlet.FilterChain filterChain)
-//            throws javax.servlet.ServletException, IOException {
-//        httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
-//        filterChain.doFilter(httpServletRequest, httpServletResponse);
-//    }
-//}
 @Component
 @AllArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
+
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
+            String token = jwtTokenProvider.resolveToken(request);
+
             if (token != null && jwtTokenProvider.validateToken(token)) {
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
                 if (authentication != null) {
@@ -41,9 +30,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request, response);
-        }
-        catch (JwtAuthException e) {
-
+        } catch (JwtAuthException e) {
+            logger.warn(e.getMessage(), e);
+            response.sendError(javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         }
     }
 

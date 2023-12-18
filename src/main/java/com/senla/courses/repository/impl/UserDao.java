@@ -31,7 +31,7 @@ public class UserDao extends AbstractCrudDao<User> implements UserRepository {
         CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
-        root.fetch(User_.trainings, JoinType.INNER);
+        root.fetch(User_.trainings, JoinType.LEFT);
         criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(User_.id), id));
 
         TypedQuery<User> query = entityManager.createQuery(criteriaQuery);

@@ -88,14 +88,21 @@
 
     <changeSet id="2023-12-17 22:40" author="Irina Bogatyr">
         <sql>
-            UPDATE my_study.users SET role = 'USER' WHERE name = 'Иван' AND surname = 'Петров' AND email =
-            'test@mail.ru';
-            UPDATE my_study.users SET role = 'USER' WHERE name = 'Петр' AND surname = 'Иванов' AND email =
-            'mail@test.ru';
-            UPDATE my_study.users SET role = 'ADMIN' WHERE name = 'Сергей' AND surname = 'Иванов' AND email =
-            'sergeymail@test.ru';
-            UPDATE my_study.users SET role = 'USER' WHERE name = 'Ирина' AND surname = 'Иванова' AND email =
-            'irinamail@test.ru';
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 1, 'ADMIN');
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 1, 'USER');
+
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 2, 'USER');
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 3, 'USER');
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 4, 'USER');
+        </sql>
+    </changeSet>
+
+    <changeSet id="2023-12-17 22:45" author="Irina Bogatyr">
+        <sql>
+            UPDATE my_study.users SET password='$2a$10$zhitZfdHOb2cNhD7NU7GnuRGqCgxWa1cLZjwvn/U3NItgR8O/GCdG' where id=1;
+            UPDATE my_study.users SET password='$2a$10$5k59Yl5cpWdyPvyERSOE4OZITWLhX8PWOQXF/e5mWNqm4grWbp9u.' where id=2;
+            UPDATE my_study.users SET password='$2a$10$QComFUdkC5CffGbYXzSAeO2s1JZ3TCU6aQnpV6bI5pOtWczGmgn2i' where id=3;
+            UPDATE my_study.users SET password='$2a$10$hxYp/CkbWVkzClcoVtBsdeMG4RbKvK7.9sKg73iIWBKpg2nedZyfe' where id=4;
         </sql>
     </changeSet>
 

@@ -40,9 +40,9 @@ public class User {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name="role", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Role> roles;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -61,7 +61,7 @@ public class User {
     )
     private List<Training> trainings;
 
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Address> addresses;
 
 }
