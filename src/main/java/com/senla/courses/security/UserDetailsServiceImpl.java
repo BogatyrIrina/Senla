@@ -1,9 +1,9 @@
 package com.senla.courses.security;
 
+import com.senla.courses.entity.Role;
 import com.senla.courses.entity.User;
 import com.senla.courses.exeption.UserNotFoundException;
 import com.senla.courses.repository.UserRepository;
-import com.senla.courses.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
