@@ -1,6 +1,7 @@
 package com.senla.courses.config;
 
 import com.senla.courses.dto.Role;
+import com.senla.courses.exeption.CustomAccessDeniedHandler;
 import com.senla.courses.filter.JwtTokenFilter;
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
@@ -55,6 +57,9 @@ public class SecurityConfig {
                 )
                 .httpBasic(Customizer.withDefaults())
                 .addFilterAfter(jwtTokenFilter, BasicAuthenticationFilter.class)
+                .exceptionHandling(c -> c
+                        .accessDeniedHandler(accessDeniedHandler())
+                )
                 .build();
     }
 
@@ -66,5 +71,10 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 }

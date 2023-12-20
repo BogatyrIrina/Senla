@@ -30,7 +30,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request, response);
-        } catch (JwtAuthException e) {
+        } catch (Exception e) {
             logger.warn(e.getMessage(), e);
             response.sendError(javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         }
