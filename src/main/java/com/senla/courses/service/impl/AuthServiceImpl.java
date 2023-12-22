@@ -4,6 +4,7 @@ import com.senla.courses.dto.JwtResponse;
 import com.senla.courses.dto.RegistrationDto;
 import com.senla.courses.dto.RegisterResponse;
 import com.senla.courses.dto.UserDto;
+import com.senla.courses.enums.Role;
 import com.senla.courses.exeption.RegistrationException;
 import com.senla.courses.exeption.UnauthorisedException;
 import com.senla.courses.filter.JwtTokenProvider;
@@ -17,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -54,6 +57,7 @@ public class AuthServiceImpl implements AuthService {
             userDto.setUserEmail(registrationDto.getEmail());
             //обновляем пароль на хэшированный
             userDto.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+            userDto.setRoles(List.of(Role.USER));
             UserDto user = userService.createUser(userDto);
             RegisterResponse registerResponse = new RegisterResponse();
             registerResponse.setUsername(user.getId());
