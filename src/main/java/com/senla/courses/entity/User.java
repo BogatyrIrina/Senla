@@ -38,6 +38,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Role> roles;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_trainer", schema = "my_study",
@@ -55,7 +58,7 @@ public class User {
     )
     private List<Training> trainings;
 
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Address> addresses;
 
 }

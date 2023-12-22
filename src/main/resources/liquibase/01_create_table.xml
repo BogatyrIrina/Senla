@@ -90,4 +90,15 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2023-12-17 22:20" author="Irina Bogatyr">
+        <sql dbms="postgresql" endDelimiter=";">
+            CREATE SEQUENCE IF NOT EXISTS my_study.role_user_id_seq;
+        </sql>
+        <createTable tableName="role_user" schemaName="my_study">
+            <column name="id" type="BIGINT"/>
+            <column name="authority" type="varchar(100)"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

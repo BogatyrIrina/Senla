@@ -7,28 +7,40 @@
 
     <changeSet id="2023-11-21 19:10" author="Irina Bogatyr">
         <sql>
-            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Иван', 'Петров', 'test@mail.ru');
-            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Петр', 'Иванов', 'mail@test.ru');
-            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Сергей', 'Иванов', 'sergeymail@test.ru');
-            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Ирина', 'Иванова', 'irinamail@test.ru');
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Иван',
+            'Петров', 'test@mail.ru');
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Петр',
+            'Иванов', 'mail@test.ru');
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Сергей',
+            'Иванов', 'sergeymail@test.ru');
+            INSERT INTO my_study.users(id, name, surname, email) VALUES (nextval('my_study.users_id_seq'), 'Ирина',
+            'Иванова', 'irinamail@test.ru');
         </sql>
     </changeSet>
 
     <changeSet id="2023-11-25 14:50" author="Irina Bogatyr">
         <sql>
-            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Семен', 'Семенов', 'фитнес-тренер');
-            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Василий', 'Васильев', 'персональный тренер');
-            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Дмитрий', 'Дмитриев', 'корпоративный тренер');
-            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES (nextval('my_study.trainers_id_seq'), 'Дарья', 'Дарьева', 'мастер-тренер');
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES
+            (nextval('my_study.trainers_id_seq'), 'Семен', 'Семенов', 'фитнес-тренер');
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES
+            (nextval('my_study.trainers_id_seq'), 'Василий', 'Васильев', 'персональный тренер');
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES
+            (nextval('my_study.trainers_id_seq'), 'Дмитрий', 'Дмитриев', 'корпоративный тренер');
+            INSERT INTO my_study.trainers(id, name, surname, specialization) VALUES
+            (nextval('my_study.trainers_id_seq'), 'Дарья', 'Дарьева', 'мастер-тренер');
         </sql>
     </changeSet>
 
     <changeSet id="2023-11-25 14:55" author="Irina Bogatyr">
         <sql>
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аэробная тренировка', '40 мин');
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'силовая тренировка', '30 мин');
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аквааэробика', '20 мин');
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'тимбилдинг', '50 мин');
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аэробная
+            тренировка', '40 мин');
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'силовая
+            тренировка', '30 мин');
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аквааэробика',
+            '20 мин');
+            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'тимбилдинг',
+            '50 мин');
         </sql>
     </changeSet>
 
@@ -67,8 +79,34 @@
 
     <changeSet id="2023-12-02 15:55" author="Irina Bogatyr">
         <sql>
-            INSERT INTO my_study.address(id, user_id, address) VALUES (nextval('my_study.trainers_id_seq'), 1, 'Россия, г. Муром, ул. Ленина, д. 7');
-            INSERT INTO my_study.address(id, user_id, address) VALUES (nextval('my_study.trainers_id_seq'), 1, 'Россия, г. Муром, ул. Ленина, д. 8');
+            INSERT INTO my_study.address(id, user_id, address) VALUES (nextval('my_study.trainers_id_seq'), 1, 'Россия,
+            г. Муром, ул. Ленина, д. 7');
+            INSERT INTO my_study.address(id, user_id, address) VALUES (nextval('my_study.trainers_id_seq'), 1, 'Россия,
+            г. Муром, ул. Ленина, д. 8');
+        </sql>
+    </changeSet>
+
+    <changeSet id="2023-12-17 22:40" author="Irina Bogatyr">
+        <sql>
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 1, 'ADMIN');
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 1, 'USER');
+
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 2, 'USER');
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 3, 'USER');
+            INSERT INTO my_study.role_user (id, user_id, authority) VALUES(nextval('my_study.role_user_id_seq'), 4, 'USER');
+        </sql>
+    </changeSet>
+
+    <changeSet id="2023-12-17 22:45" author="Irina Bogatyr">
+        <sql>
+            UPDATE my_study.users SET password='$2a$10$zhitZfdHOb2cNhD7NU7GnuRGqCgxWa1cLZjwvn/U3NItgR8O/GCdG' where id =
+            (select id from my_study.users where email = 'test@mail.ru');
+            UPDATE my_study.users SET password='$2a$10$5k59Yl5cpWdyPvyERSOE4OZITWLhX8PWOQXF/e5mWNqm4grWbp9u.' where id =
+            (select id from my_study.users where email = 'mail@test.ru');
+            UPDATE my_study.users SET password='$2a$10$QComFUdkC5CffGbYXzSAeO2s1JZ3TCU6aQnpV6bI5pOtWczGmgn2i' where id =
+            (select id from my_study.users where email = 'sergeymail@test.ru');
+            UPDATE my_study.users SET password='$2a$10$hxYp/CkbWVkzClcoVtBsdeMG4RbKvK7.9sKg73iIWBKpg2nedZyfe' where id =
+            (select id from my_study.users where email = 'irinamail@test.ru');
         </sql>
     </changeSet>
 

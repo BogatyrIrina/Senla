@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getById(userDto.getId());
 
         if (user == null) {
-            throw new RuntimeException("Пользователь с идентификатором " + userDto.getId() + " не найден");
+            throw new RuntimeException("User with id " + userDto.getId() + " not found");
         }
         user.setName(userDto.getUserName());
         user.setEmail(userDto.getUserEmail());
