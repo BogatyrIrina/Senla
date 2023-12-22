@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
             userDto.setUserName(registrationDto.getName());
             userDto.setUserEmail(registrationDto.getEmail());
             //обновляем пароль на хэшированный
-            userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            userDto.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
             UserDto user = userService.createUser(userDto);
             RegisterResponse registerResponse = new RegisterResponse();
             registerResponse.setUsername(user.getId());
