@@ -1,4 +1,4 @@
-package com.senla.courses.dto;
+package com.senla.courses.enums;
 
 public enum Role {
     /**

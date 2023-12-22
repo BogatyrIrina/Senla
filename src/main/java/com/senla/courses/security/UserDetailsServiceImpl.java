@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UserNotFoundException {
         User user = Optional.ofNullable(userRepository.getById(Long.parseLong(username)))
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         String[] roles = user.getRoles().stream()
                 .map(Role::getAuthority)

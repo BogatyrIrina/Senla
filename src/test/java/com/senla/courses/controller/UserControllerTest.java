@@ -2,7 +2,7 @@ package com.senla.courses.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senla.courses.Application;
-import com.senla.courses.dto.JwtRequest;
+import com.senla.courses.dto.LoginDto;
 import com.senla.courses.dto.TrainingDto;
 import com.senla.courses.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,11 +61,11 @@ public class UserControllerTest {
 
     @Test
     public void test_should_return_403() throws Exception {
-        JwtRequest jwtRequest = new JwtRequest();
-        jwtRequest.setUsername("2");
-        jwtRequest.setPassword("123_2");
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUsername("2");
+        loginDto.setPassword("123_2");
 
-        String body = objectMapper.writeValueAsString(jwtRequest);
+        String body = objectMapper.writeValueAsString(loginDto);
 
         MvcResult result = mockMvc.perform(post("/api/security/login")
                         .content(body)
@@ -94,11 +94,11 @@ public class UserControllerTest {
 
     @Test
     public void test_should_return_user() throws Exception {
-        JwtRequest jwtRequest = new JwtRequest();
-        jwtRequest.setUsername("1");
-        jwtRequest.setPassword("123_1");
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUsername("1");
+        loginDto.setPassword("123_1");
 
-        String body = objectMapper.writeValueAsString(jwtRequest);
+        String body = objectMapper.writeValueAsString(loginDto);
 
         MvcResult result = mockMvc.perform(post("/api/security/login")
                         .content(body)
@@ -123,11 +123,11 @@ public class UserControllerTest {
     @Test
     public void test_should_create_user() throws Exception {
         //токен админа
-        JwtRequest jwtRequest = new JwtRequest();
-        jwtRequest.setUsername("1");
-        jwtRequest.setPassword("123_1");
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUsername("1");
+        loginDto.setPassword("123_1");
 
-        String body = objectMapper.writeValueAsString(jwtRequest);
+        String body = objectMapper.writeValueAsString(loginDto);
 
         MvcResult result = mockMvc.perform(post("/api/security/login")
                         .content(body)

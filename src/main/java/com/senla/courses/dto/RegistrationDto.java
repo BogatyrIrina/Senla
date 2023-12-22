@@ -3,7 +3,7 @@ package com.senla.courses.dto;
 import lombok.Data;
 
 @Data
-public class Register {
+public class RegistrationDto {
     private String name;
     private String surname;
     private String password;

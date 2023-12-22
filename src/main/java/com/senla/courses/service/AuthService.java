@@ -1,9 +1,12 @@
 package com.senla.courses.service;
 
-import com.senla.courses.dto.Register;
+import com.senla.courses.dto.JwtResponse;
+import com.senla.courses.dto.RegistrationDto;
+import com.senla.courses.dto.RegisterResponse;
 
 public interface AuthService {
-    boolean login(String userName, String password);
+    JwtResponse login(String userName, String password);
 
-    boolean register(Register register);
+    RegisterResponse register(RegistrationDto registrationDto);
+
 }

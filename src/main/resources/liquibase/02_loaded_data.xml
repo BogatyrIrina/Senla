@@ -99,10 +99,14 @@
 
     <changeSet id="2023-12-17 22:45" author="Irina Bogatyr">
         <sql>
-            UPDATE my_study.users SET password='$2a$10$zhitZfdHOb2cNhD7NU7GnuRGqCgxWa1cLZjwvn/U3NItgR8O/GCdG' where id=1;
-            UPDATE my_study.users SET password='$2a$10$5k59Yl5cpWdyPvyERSOE4OZITWLhX8PWOQXF/e5mWNqm4grWbp9u.' where id=2;
-            UPDATE my_study.users SET password='$2a$10$QComFUdkC5CffGbYXzSAeO2s1JZ3TCU6aQnpV6bI5pOtWczGmgn2i' where id=3;
-            UPDATE my_study.users SET password='$2a$10$hxYp/CkbWVkzClcoVtBsdeMG4RbKvK7.9sKg73iIWBKpg2nedZyfe' where id=4;
+            UPDATE my_study.users SET password='$2a$10$zhitZfdHOb2cNhD7NU7GnuRGqCgxWa1cLZjwvn/U3NItgR8O/GCdG' where id =
+            (select id from my_study.users where email = 'test@mail.ru');
+            UPDATE my_study.users SET password='$2a$10$5k59Yl5cpWdyPvyERSOE4OZITWLhX8PWOQXF/e5mWNqm4grWbp9u.' where id =
+            (select id from my_study.users where email = 'mail@test.ru');
+            UPDATE my_study.users SET password='$2a$10$QComFUdkC5CffGbYXzSAeO2s1JZ3TCU6aQnpV6bI5pOtWczGmgn2i' where id =
+            (select id from my_study.users where email = 'sergeymail@test.ru');
+            UPDATE my_study.users SET password='$2a$10$hxYp/CkbWVkzClcoVtBsdeMG4RbKvK7.9sKg73iIWBKpg2nedZyfe' where id =
+            (select id from my_study.users where email = 'irinamail@test.ru');
         </sql>
     </changeSet>
 

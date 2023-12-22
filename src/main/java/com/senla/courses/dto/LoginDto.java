@@ -3,7 +3,7 @@ package com.senla.courses.dto;
 import lombok.Data;
 
 @Data
-public class JwtRequest {
+public class LoginDto {
     private String username;
     private String password;
 }

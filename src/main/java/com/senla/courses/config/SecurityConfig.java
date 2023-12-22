@@ -1,6 +1,6 @@
 package com.senla.courses.config;
 
-import com.senla.courses.dto.Role;
+import com.senla.courses.enums.Role;
 import com.senla.courses.exeption.CustomAccessDeniedHandler;
 import com.senla.courses.filter.JwtTokenFilter;
 import jakarta.servlet.DispatcherType;
