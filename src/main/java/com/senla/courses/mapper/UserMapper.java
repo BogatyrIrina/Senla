@@ -3,16 +3,20 @@ package com.senla.courses.mapper;
 import com.senla.courses.dto.TrainerDto;
 import com.senla.courses.dto.TrainingDto;
 import com.senla.courses.dto.UserDto;
+import com.senla.courses.entity.Role;
 import com.senla.courses.entity.Trainer;
 import com.senla.courses.entity.Training;
 import com.senla.courses.entity.User;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Mapper(
         componentModel = "spring",
@@ -78,6 +82,30 @@ public interface UserMapper {
         training.setTime(trainingDto.getTrainingTime());
 
         return training;
+    }
+
+    default Role map(com.senla.courses.enums.Role r) {
+        Role role = new Role();
+        role.setAuthority(r.name());
+        return role;
+    }
+
+    default com.senla.courses.enums.Role map(Role role) {
+        return Stream.of(com.senla.courses.enums.Role.values())
+                .filter(r -> r.name().equals(role.getAuthority()))
+                .findFirst().orElse(null);
+    }
+
+    @AfterMapping
+    default void updateRoles(@MappingTarget User user) {
+
+        if (user.getRoles() == null) {
+            return;
+        }
+
+        for (Role role : user.getRoles()) {
+            role.setUser(user);
+        }
     }
 }
 

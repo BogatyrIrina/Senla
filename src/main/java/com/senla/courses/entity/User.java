@@ -38,7 +38,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<Role> roles;
 
     @ManyToMany(fetch = FetchType.LAZY)

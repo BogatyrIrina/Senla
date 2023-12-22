@@ -1,7 +1,7 @@
 package com.senla.courses.dto;
 
 
-import com.senla.courses.entity.Role;
+import com.senla.courses.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
