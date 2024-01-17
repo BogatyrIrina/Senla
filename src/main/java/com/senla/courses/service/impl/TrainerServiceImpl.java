@@ -38,6 +38,7 @@ public class TrainerServiceImpl implements TrainerService {
         return trainerMapper.toDto(trainer);
     }
 
+    @Transactional
     @Override
     public Collection<TrainerDto> getAllTrainers() {
         return trainerMapper.toDtoList(trainerRepository.getAll());

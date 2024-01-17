@@ -14,3 +14,13 @@ services:
     volumes:
       - ./db:/docker-entrypoint-initdb.d
 #      - ./docker/postgres/data:/var/lib/postgresql/data
+  tomcat-web:
+    depends_on:
+      - my-study-postgres
+    image: tomcat
+    volumes:
+      - ./target/Senla-1.0.0-SNAPSHOT.war:/usr/local/tomcat/webapps/my-study.war
+    ports:
+      - '8080:8080'
+    links:
+      - "my-study-postgres:db"
