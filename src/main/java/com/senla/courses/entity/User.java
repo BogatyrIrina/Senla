@@ -47,7 +47,6 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "trainer_id")}
     )
-
     private List<Trainer> trainers;
 
     @ManyToMany(fetch = FetchType.LAZY)

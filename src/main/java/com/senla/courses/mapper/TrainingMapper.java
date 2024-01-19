@@ -21,11 +21,11 @@ import java.util.List;
 public interface TrainingMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "trainingName", source = "name")
-    @Mapping(target = "trainingTime", source = "time")
+    @Mapping(target = "trainingDate", source = "date")
     TrainingDto toDto(Training training);
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "trainingName")
-    @Mapping(target = "time", source = "trainingTime")
+    @Mapping(target = "date", source = "trainingDate")
     Training toEntity(TrainingDto trainingDto);
     default Collection<TrainingDto> toDtoList(Collection<Training> trainings) {
         List<TrainingDto> trainingDtoList = new ArrayList<>();

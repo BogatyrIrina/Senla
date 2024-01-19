@@ -64,7 +64,7 @@ public interface TrainerMapper {
 
         trainingDto.setId(training.getId());
         trainingDto.setTrainingName(training.getName());
-        trainingDto.setTrainingTime(training.getTime());
+        trainingDto.setTrainingDate(training.getDate());
 
         return trainingDto;
     }

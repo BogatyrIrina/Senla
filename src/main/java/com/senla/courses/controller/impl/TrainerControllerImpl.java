@@ -2,6 +2,8 @@ package com.senla.courses.controller.impl;
 
 import com.senla.courses.controller.TrainerController;
 import com.senla.courses.dto.TrainerDto;
+import com.senla.courses.entity.Training;
+import com.senla.courses.entity.User;
 import com.senla.courses.service.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/trainers")
@@ -42,5 +46,15 @@ public class TrainerControllerImpl implements TrainerController {
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable("id") Long id) {
         return trainerService.delete(id);
+    }
+
+    @GetMapping("/{trainerId}/users")
+    public List<User> getUsersByTrainer(@PathVariable("trainerId") Long trainerId) {
+        return trainerService.getUsersByTrainer(trainerId);
+    }
+
+    @GetMapping("/{trainerId}/trainings")
+    public List<Training> getTrainingsByTrainer(@PathVariable("trainerId") Long trainerId) {
+        return trainerService.getTrainingsByTrainer(trainerId);
     }
 }
