@@ -1,5 +1,6 @@
 package com.senla.courses.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -44,6 +45,6 @@ public class Training {
     @JoinColumn(name = "trainer_id", referencedColumnName = "id")
     private Trainer trainer;
 
-    @ManyToMany(mappedBy = "trainings", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "trainings", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     private List<User> users;
 }

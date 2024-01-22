@@ -14,4 +14,5 @@ public interface ScheduleService {
 
     Schedule getSchedule();
 
+    String registerToTraining(long userId, long trainingId);
 }

@@ -57,5 +57,10 @@
 Дальше вызывать остальные сервисы приложения передав в header
 Authorization : Bearer Ваш_токен
 
+Запись на тренировку
+
+    curl -X POST --location "http://localhost:8080/my-study/api/business/registr-to-training?training_id=4" \
+    -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiZXhwIjoxNzA1ODM4NzgwLCJpYXQiOjE3MDU4Mzg0ODB9.0_-DQ4XPrhUAONzP5G59pm6T4DEWXP8FtIb4iHj3i-F23eZVcIsCRhEkMTDeZ-acOdphBLGNiTHLi9XK3wvzOQ"
+
 ## Разработчик
 Богатырь Ирина Евгеньевна
