@@ -21,19 +21,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ScheduleServiceImpl implements ScheduleService {
-    private ScheduleService scheduleService;
     private final TrainingRepository trainingRepository;
     private final UserRepository userRepository;
-
-    @Override
-    public void addTrainingToSchedule(List<Training> trainingsList) {
-        scheduleService.addTrainingToSchedule(trainingsList);
-    }
-
-    @Override
-    public void removeTrainingFromSchedule(List<Training> trainingsList) {
-        scheduleService.removeTrainingFromSchedule(trainingsList);
-    }
 
     @Override
     @Transactional
@@ -107,6 +96,42 @@ public class ScheduleServiceImpl implements ScheduleService {
         return "You have successfully register for training c id=%s".formatted(trainingId);
     }
 
+    @Transactional
+    @Override
+    public Schedule getPersonalSchedule(long userId) {
+
+        User user = userRepository.getById(userId);
+
+        List<TrainingsInfoDto> businessTrainings = new ArrayList<>();
+
+        for (Training training : user.getTrainings()) {
+            //если дата тренировки меньше текущей то такую тренировку не возвращаем
+            if (training.getDate().compareTo(LocalDateTime.now()) <= 0) {
+                continue;
+            }
+
+            ScheduleTrainer scheduleTrainer = new ScheduleTrainer();
+            scheduleTrainer.setName(training.getTrainer().getName());
+
+            TrainingsInfoDto businessTraining = new TrainingsInfoDto();
+            businessTraining.setId(training.getId());
+            businessTraining.setTrainingName(training.getName());
+            businessTraining.setTrainingDate(training.getDate());
+            businessTraining.setTrainer(scheduleTrainer);
+            businessTraining.setTotalCount(training.getTotalCount());
+
+            Integer availableCount = training.getTotalCount() - training.getUsers().size();
+            businessTraining.setAvailableCount(availableCount);
+
+            businessTrainings.add(businessTraining);
+        }
+
+        Schedule schedule = new Schedule();
+        schedule.setTrainings(businessTrainings);
+
+        return schedule;
+    }
+
     private boolean checkFreePlace(Training training) {
         Integer availableCount = training.getTotalCount() - training.getUsers().size();
         return availableCount == 0;
@@ -121,35 +146,4 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return false;
     }
-
-
-//    public void addTrainingFromSchedule(List<Training> trainingsList) {
-//        trainings.add(trainingsList);
-//    }
-//
-//    public void removeTrainingFromSchedule(Training training) {
-//        trainings.remove(training);
-//    }
-//
-//    public void addTrainerFromSchedule(Trainer trainer) {
-//        trainers.add(trainer);
-//    }
-//
-//    public void removeTrainerFromSchedule(Trainer trainer) {
-//        trainers.remove(trainer);
-//    }
-//
-//
-//
-//    @Override
-//    public void addUserToTraining(User user, Trainings training) {
-//        // Логика добавления пользователя на тренировку
-//        user.getTrainings().add(training);
-//    }
-//
-//    @Override
-//    public void removeUserFromTraining(User user, Trainings training) {
-//        // Логика удаления пользователя с тренировки
-//        user.getTrainings().remove(training);
-//    }
 }

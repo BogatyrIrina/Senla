@@ -78,29 +78,4 @@ public class TrainerServiceImpl implements TrainerService {
         return trainerRepository.delete(id);
     }
 
-    @Override
-    public List<User> getUsersByTrainer(Long trainerId) {
-        if (trainerId == null) {
-            throw new TrainerNotFoundException("Trainer id can not be null");
-        }
-        Trainer trainer = trainerRepository.getById(trainerId);
-        if (trainer == null) {
-            throw new TrainerNotFoundException("Trainer with id " + trainerId + " not found");
-        }
-
-        return trainer.getUsers();
-    }
-
-    @Override
-    public List<Training> getTrainingsByTrainer(Long trainerId) {
-        if (trainerId == null) {
-            throw new TrainerNotFoundException("Trainer id can not be null");
-        }
-        Trainer trainer = trainerRepository.getById(trainerId);
-        if (trainer == null) {
-            throw new TrainerNotFoundException("Trainer with id " + trainerId + " not found");
-        }
-
-        return trainer.getTrainings();
-    }
 }

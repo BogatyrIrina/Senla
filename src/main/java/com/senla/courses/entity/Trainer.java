@@ -38,7 +38,7 @@ public class Trainer {
     private List<User> users;
 
     @OneToOne(mappedBy = "trainer", fetch = FetchType.LAZY)
-    private List<Training> trainings;
+    private Training training;
 
 }
 

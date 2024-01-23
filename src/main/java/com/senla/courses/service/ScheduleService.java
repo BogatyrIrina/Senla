@@ -7,12 +7,9 @@ import java.util.List;
 
 public interface ScheduleService {
 
-
-    void addTrainingToSchedule(List<Training> trainingsList);
-
-    void removeTrainingFromSchedule(List<Training> trainingsList);
-
     Schedule getSchedule();
 
     String registerToTraining(long userId, long trainingId);
+
+    Schedule getPersonalSchedule(long l);
 }

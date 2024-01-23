@@ -17,7 +17,4 @@ public interface TrainerService {
     TrainerDto modifyTrainer(TrainerDto trainer);
     boolean delete(Long id);
 
-    List<User> getUsersByTrainer(Long trainerId);
-
-    List<Training> getTrainingsByTrainer(Long trainerId);
 }

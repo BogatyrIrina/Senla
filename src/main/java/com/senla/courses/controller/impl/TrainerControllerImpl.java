@@ -48,13 +48,4 @@ public class TrainerControllerImpl implements TrainerController {
         return trainerService.delete(id);
     }
 
-    @GetMapping("/{trainerId}/users")
-    public List<User> getUsersByTrainer(@PathVariable("trainerId") Long trainerId) {
-        return trainerService.getUsersByTrainer(trainerId);
-    }
-
-    @GetMapping("/{trainerId}/trainings")
-    public List<Training> getTrainingsByTrainer(@PathVariable("trainerId") Long trainerId) {
-        return trainerService.getTrainingsByTrainer(trainerId);
-    }
 }

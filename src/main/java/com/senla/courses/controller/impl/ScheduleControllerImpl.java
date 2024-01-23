@@ -29,4 +29,10 @@ public class ScheduleControllerImpl implements ScheduleController {
         return scheduleService.registerToTraining(Long.parseLong(authentication.getName()), trainingId);
     }
 
+    @GetMapping("/get-personal-schedule")
+    public Schedule schedule(Authentication authentication) {
+        return scheduleService.getPersonalSchedule(Long.parseLong(authentication.getName()));
+    }
+
+
 }

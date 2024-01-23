@@ -14,6 +14,4 @@ public interface TrainerController {
     Collection<TrainerDto> trainers();
     TrainerDto update(TrainerDto trainerDto);
     boolean delete(Long id);
-    List<User> getUsersByTrainer(Long trainerId);
-    List<Training> getTrainingsByTrainer(Long trainerId);
 }
