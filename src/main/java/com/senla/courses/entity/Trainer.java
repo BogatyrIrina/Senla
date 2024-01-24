@@ -39,6 +39,7 @@ public class Trainer {
 
     @OneToOne(mappedBy = "trainer", fetch = FetchType.LAZY)
     private Training training;
+
 }
 
 

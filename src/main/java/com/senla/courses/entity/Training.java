@@ -1,5 +1,7 @@
 package com.senla.courses.entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -34,12 +37,14 @@ public class Training {
     @SequenceGenerator(name = "trainings_seq", sequenceName = "trainings_id_seq", schema = "my_study", allocationSize = 1)
     private Long id;
     private String name;
-    private String time;
+    private LocalDateTime date;
+    @Column(name = "total_count")
+    private Integer totalCount;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id", referencedColumnName = "id")
     private Trainer trainer;
 
-    @ManyToMany(mappedBy = "trainings", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "trainings", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     private List<User> users;
 }

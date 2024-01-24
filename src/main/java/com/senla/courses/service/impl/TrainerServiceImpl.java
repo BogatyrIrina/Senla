@@ -2,6 +2,8 @@ package com.senla.courses.service.impl;
 
 import com.senla.courses.dto.TrainerDto;
 import com.senla.courses.entity.Trainer;
+import com.senla.courses.entity.Training;
+import com.senla.courses.entity.User;
 import com.senla.courses.exeption.TrainerNotFoundException;
 import com.senla.courses.exeption.UserNotFoundException;
 import com.senla.courses.mapper.TrainerMapper;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +36,7 @@ public class TrainerServiceImpl implements TrainerService {
     public TrainerDto getTrainerById(Long id) {
         Trainer trainer = trainerRepository.getById(id);
         if (trainer == null) {
-            throw new TrainerNotFoundException("Попытка получить не существующего тренера с id = " + id);
+            throw new TrainerNotFoundException("Trying to get a non-existing trainer with id = " + id);
         }
         return trainerMapper.toDto(trainer);
     }
@@ -52,7 +55,7 @@ public class TrainerServiceImpl implements TrainerService {
         }
         Trainer trainer = trainerRepository.getById(trainerDto.getId());
         if (trainer == null) {
-            throw new RuntimeException("Тренер с идентификатором " + trainerDto.getId() + " не найден");
+            throw new RuntimeException("Trainer with id " + trainerDto.getId() + " not found");
         }
 
         trainer.setName(trainerDto.getTrainerName());
@@ -70,8 +73,9 @@ public class TrainerServiceImpl implements TrainerService {
         }
         Trainer trainer = trainerRepository.getById(id);
         if (trainer == null) {
-            throw new TrainerNotFoundException("Тренер с идентификатором " + id + " не найден");
+            throw new TrainerNotFoundException("Trainer with id " + id + " not found");
         }
         return trainerRepository.delete(id);
     }
+
 }

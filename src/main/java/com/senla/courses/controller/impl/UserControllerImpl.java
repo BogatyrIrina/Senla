@@ -1,7 +1,9 @@
 package com.senla.courses.controller.impl;
 
 import com.senla.courses.controller.UserController;
+import com.senla.courses.dto.TrainingDto;
 import com.senla.courses.dto.UserDto;
+import com.senla.courses.service.TrainingService;
 import com.senla.courses.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
 public class UserControllerImpl implements UserController {
     private final UserService userService;
+    private final TrainingService trainingService;
 
     @PostMapping
     public UserDto create(@RequestBody UserDto userDto) {
@@ -48,6 +52,21 @@ public class UserControllerImpl implements UserController {
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable("id") Long id) {
         return userService.delete(id);
+    }
+
+    @Override
+    public boolean addUserToTraining(Long userId, Long trainingId) {
+        return userService.addUserToTraining(userId, trainingId);
+    }
+
+    @Override
+    public boolean removeUserFromTraining(Long userId, Long trainingId) {
+        return userService.removeUserFromTraining(userId, trainingId);
+    }
+
+    @Override
+    public List<TrainingDto> getUserSchedule(Long userId) {
+        return userService.getUserSchedule(userId);
     }
 
 }

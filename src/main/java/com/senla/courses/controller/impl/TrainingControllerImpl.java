@@ -17,7 +17,7 @@ import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/trainings")
+@RequestMapping("/api/training")
 public class TrainingControllerImpl implements TrainingController {
     private final TrainingService trainingService;
     @PostMapping

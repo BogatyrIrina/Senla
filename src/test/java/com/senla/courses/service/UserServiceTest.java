@@ -4,6 +4,7 @@ import com.senla.courses.dto.UserDto;
 import com.senla.courses.entity.User;
 import com.senla.courses.mapper.UserMapper;
 import com.senla.courses.mapper.UserMapperImpl;
+import com.senla.courses.repository.TrainingRepository;
 import com.senla.courses.repository.UserRepository;
 import com.senla.courses.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +21,10 @@ import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
     private final UserRepository userRepository = mock(UserRepository.class);
+    private final TrainingRepository trainingRepository = mock(TrainingRepository.class);
     private final UserMapper userMapper = new UserMapperImpl();
-    private final UserService userService = new UserServiceImpl(userRepository, userMapper);
+
+    private final UserService userService = new UserServiceImpl(userRepository, trainingRepository,userMapper);
 
     @BeforeEach
     public void resetMocks() {

@@ -33,14 +33,14 @@
 
     <changeSet id="2023-11-25 14:55" author="Irina Bogatyr">
         <sql>
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аэробная
-            тренировка', '40 мин');
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'силовая
-            тренировка', '30 мин');
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'аквааэробика',
-            '20 мин');
-            INSERT INTO my_study.trainings(id, name, time) VALUES (nextval('my_study.trainings_id_seq'), 'тимбилдинг',
-            '50 мин');
+            INSERT INTO my_study.trainings(id, name, date) VALUES (nextval('my_study.trainings_id_seq'), 'аэробная
+            тренировка', '2022-10-10 11:30:30');
+            INSERT INTO my_study.trainings(id, name, date) VALUES (nextval('my_study.trainings_id_seq'), 'силовая
+            тренировка', '2023-1-10 11:30:30');
+            INSERT INTO my_study.trainings(id, name, date) VALUES (nextval('my_study.trainings_id_seq'), 'аквааэробика',
+            '2023-2-10 11:30:30');
+            INSERT INTO my_study.trainings(id, name, date) VALUES (nextval('my_study.trainings_id_seq'), 'тимбилдинг',
+            '2027-3-10 11:30:30');
         </sql>
     </changeSet>
 

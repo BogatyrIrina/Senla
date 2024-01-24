@@ -66,7 +66,7 @@ public interface UserMapper {
 
         trainingDto.setId(training.getId());
         trainingDto.setTrainingName(training.getName());
-        trainingDto.setTrainingTime(training.getTime());
+        trainingDto.setTrainingDate(training.getDate());
 
         return trainingDto;
     }
@@ -79,7 +79,7 @@ public interface UserMapper {
 
         training.setId(trainingDto.getId());
         training.setName(trainingDto.getTrainingName());
-        training.setTime(trainingDto.getTrainingTime());
+        training.setDate(trainingDto.getTrainingDate());
 
         return training;
     }

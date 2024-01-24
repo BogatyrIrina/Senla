@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Service
@@ -31,7 +32,7 @@ public class TrainingServiceImpl implements TrainingService {
     public TrainingDto getTrainingById(Long id) {
         Training training = trainingRepository.getById(id);
         if (training == null) {
-            throw new TrainingNotFoundException("Попытка получить не существующую тренировку с id= [" + id + "]");
+            throw new TrainingNotFoundException("Trying to get a non-existing workout with id = [" + id + "]");
         }
         return trainingMapper.toDto(training);
     }
@@ -48,10 +49,10 @@ public class TrainingServiceImpl implements TrainingService {
         Training training = trainingRepository.getById(trainingDto.getId());
 
         if (training == null) {
-            throw new TrainingNotFoundException("Тренировка с идентификатором " + trainingDto.getId() + " не найдена");
+            throw new TrainingNotFoundException("Training with c id " + trainingDto.getId() + " not found");
         }
         training.setName(trainingDto.getTrainingName());
-        training.setTime(trainingDto.getTrainingTime());
+        training.setDate(trainingDto.getTrainingDate());
 
         Training updateTraining = trainingRepository.update(training);
 
@@ -66,7 +67,7 @@ public class TrainingServiceImpl implements TrainingService {
         }
         Training training = trainingRepository.getById(id);
         if (training == null) {
-            throw new TrainingNotFoundException("Тренировка с идентификатором " + id + " не найдена");
+            throw new TrainingNotFoundException("Training with c id " + id + " not found");
         }
         return trainingRepository.delete(id);
     }
